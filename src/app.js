@@ -14,11 +14,11 @@ const server = http.createServer((request, response) => {
   response.status = 200;
   response.statusMessage = "Ok";
   response.header = "Content-Type: text/plain";
-  response.write("Hello, world!");
+  response.write("Hello, world");
   response.end();
 });
 
-server.listen(3000, () => {
-  console.log("Сервер запущен по адресу http://127.0.0.1:3000");
+server.listen(3001, () => {
+  console.log("Сервер запущен по адресу http://127.0.0.1:3001");
 });
 
