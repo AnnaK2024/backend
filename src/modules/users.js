@@ -1,9 +1,20 @@
 const fs = require("fs");
-const puth = require("path");
+const path = require("path");
 
-const getUsers = () => {
-  const filePuth = puth.join(__dirname, "../data/users.json");
-  return fs.readFileSync(filePuth);
-};
+function getUsers() {
+  const filePath = path.join(__dirname, "..", "data", "users.json");
+  try {
+    if (!fs.existsSync(filePath)) {
+      throw new Error(`File not found: ${filePath}`);
+    }
+    const data = fs.readFileSync(filePath, "utf8");
 
-module.exports = getUsers;
+    const users = JSON.parse(data);
+
+    return users;
+  } catch (err) {
+    throw new Error("Error reading users file");
+  }
+}
+
+module.exports = { getUsers };
