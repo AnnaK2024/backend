@@ -9,7 +9,14 @@ const server = http.createServer((req, res) => {
   
   const url = new URL(req.url, `http://${host}:${port}`);
   const params = url.searchParams;
+  const pathname = url.pathname;
 
+   // Проверяем, что путь корневой (/)
+  if (pathname !== '/') {
+    res.writeHead(404, { 'Content-Type': 'text/plain' });
+    res.end('Not Found');
+    return;
+  }
   
   if (params.has('hello')) {
     const name = params.get('hello');
@@ -29,7 +36,7 @@ const server = http.createServer((req, res) => {
       res.writeHead(200, { 'Content-Type': 'application/json' }); 
       res.end(JSON.stringify(users));
     } catch (err) {
-      
+      console.error('Error getting users:', err);  // Логируем ошибку для отладки
       res.writeHead(500, { 'Content-Type': 'text/plain' });
       res.end('Error reading users');
     }
