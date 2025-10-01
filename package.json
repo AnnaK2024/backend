@@ -16,9 +16,12 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/app.js",
-    "dev": "PORT=3005 nodemon src/app.js"
+    "dev": "nodemon src/app.js "
   },
   "dependencies": {
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
     "express": "^5.1.0"
   },
   "devDependencies": {
