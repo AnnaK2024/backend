@@ -15,9 +15,11 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
-
+    "start": "node src/app.js",
+    "dev": "PORT=3005 nodemon src/app.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
