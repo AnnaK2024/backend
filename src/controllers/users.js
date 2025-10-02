@@ -1,3 +1,5 @@
+const User = require("..//models/user");
+
 const getGreeting = (request, response) => {
   //Приветствие
 };
@@ -7,8 +9,10 @@ const getUsers = (request, response) => {
 };
 
 const createUser = (request, response) => {
-   response.status(201);
-  response.send(request.body);
+  //Регистрация нового читателя
+  return User.create({ ...request.body }).then((user) => {
+    response.status(201).send(user);
+  });
 };
 
 const getUser = (request, response) => {

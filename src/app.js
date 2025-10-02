@@ -2,15 +2,23 @@ const express = require("express");
 const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const mongoose = require("mongoose");
 const userRouter = require("./routes/users");
 const loggerOne = require("./middlewares/loggerOne");
 const loggerTow = require("./middlewares/loggerTwo");
 
 dotenv.config();
 
-const app = express();
+const {
+  PORT = 3000,
+  API_URL = "http://127.0.0.1",
+  MONGO_URL = "mongodb://127.0.0.1:27017/backend",
+} = process.env;
 
-const { PORT = 3000, API_URL = "http://127.0.0.1" } = process.env;
+mongoose.connect(MONGO_URL);
+console.log("Connected to MongoDb");
+
+const app = express();
 
 const answers = (request, response) => {
   response.status(200);
