@@ -5,7 +5,6 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const userRouter = require("./routes/users");
 const loggerOne = require("./middlewares/loggerOne");
-const loggerTow = require("./middlewares/loggerTwo");
 
 dotenv.config();
 
