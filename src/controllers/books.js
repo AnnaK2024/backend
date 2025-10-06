@@ -25,11 +25,11 @@ const updateStatusBook = (request, response) => {
   const { status } = request.body; // Извлекаем только статус из тела запроса
 
   // Проверяем, что статус валиден
-  const validStatuses = ["available", "borrowed", "removed"];
+  const validStatuses = ["доступна", "на руках", "удалена"];
   if (!validStatuses.includes(status)) {
     return response
       .status(400)
-      .send("Неверный статус. Допустимые: available, borrowed, removed");
+      .send("Неверный статус. Допустимые: доступна, на руках , удалена");
   }
 
   return Book.findByIdAndUpdate(
