@@ -1,8 +1,6 @@
 const router = require("express").Router();
-const loggerUsers = require("../middlewares/loggerUsers");
 
 const {
-  getGreeting,
   getUsers,
   createUser,
   getUser,
@@ -10,9 +8,6 @@ const {
   deleteUser,
 } = require("../controllers/users");
 
-router.use(loggerUsers)
-
-router.get("/", getGreeting); //Приветствие
 router.get("/users", getUsers); //Список читателей
 router.post("/users", createUser); //Регистрация нового читателя
 router.get("/users/:user_id", getUser); //Профиль читателя

@@ -1,9 +1,5 @@
 const User = require("..//models/user");
 
-const getGreeting = (request, response) => {
-  //Приветствие
-};
-
 const getUsers = (request, response) => {
   //Список читателей
   return User.find({})
@@ -23,9 +19,13 @@ const createUser = (request, response) => {
 };
 
 const getUser = (request, response) => {
+  // Профиль читателя
   const { user_id } = request.params;
   return User.findById(user_id)
     .then((user) => {
+      if (!user) {
+        return response.status(404).send({ message: "User not found" });
+      }
       response.status(200).send(user);
     })
     .catch((e) => response.status(500).send(e.message));
@@ -52,7 +52,6 @@ const deleteUser = (request, response) => {
 };
 
 module.exports = {
-  getGreeting,
   getUsers,
   createUser,
   getUser,

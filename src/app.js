@@ -26,16 +26,10 @@ const answers = (request, response) => {
   response.send("Добро пожаловть в библиотеку!");
 };
 
-app.use(cors());
-app.use(bodyParser.json());
-
 app.get("/", answers);
 
-app.post("/", (request, response) => {
-  response.status(200);
-  response.send("Регистрация нового читателя");
-});
-
+app.use(cors());
+app.use(bodyParser.json());
 app.use(userRouter);
 app.use(bookRouter);
 

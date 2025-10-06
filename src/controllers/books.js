@@ -14,6 +14,9 @@ const getBook = (request, response) => {
   const { book_id } = request.params;
   return Book.findById(book_id)
     .then((book) => {
+      if (!book) {
+        return response.status(404).send({ message: "Book not found" });
+      }
       response.status(200).send(book);
     })
     .catch((e) => response.status(500).send(e.message));

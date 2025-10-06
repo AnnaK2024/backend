@@ -1,5 +1,4 @@
 const router = require("express").Router();
-const loggerBooks = require("../middlewares/loggerBooks");
 
 const {
   getBooks,
@@ -8,8 +7,6 @@ const {
   createBook,
   deleteBook,
 } = require("../controllers/books");
-
-router.use(loggerBooks);
 
 router.get("/books", getBooks); //Список книг
 router.get("/books/:book_id", getBook); //Получить определенную книгу по id
