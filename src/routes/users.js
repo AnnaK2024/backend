@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const loggerTow = require("../middlewares/loggerTwo");
+const loggerUsers = require("../middlewares/loggerUsers");
 
 const {
   getGreeting,
@@ -10,7 +10,7 @@ const {
   deleteUser,
 } = require("../controllers/users");
 
-router.use(loggerTow)
+router.use(loggerUsers)
 
 router.get("/", getGreeting); //Приветствие
 router.get("/users", getUsers); //Список читателей

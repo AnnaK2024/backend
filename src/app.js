@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const userRouter = require("./routes/users");
-const loggerOne = require("./middlewares/loggerOne");
+const bookRouter = require("./routes/books");
 
 dotenv.config();
 
@@ -27,7 +27,6 @@ const answers = (request, response) => {
 };
 
 app.use(cors());
-app.use(loggerOne);
 app.use(bodyParser.json());
 
 app.get("/", answers);
@@ -38,6 +37,7 @@ app.post("/", (request, response) => {
 });
 
 app.use(userRouter);
+app.use(bookRouter);
 
 app.listen(PORT, () => {
   console.log(`Сервер запущен по адресу ${API_URL}:${PORT}`);
