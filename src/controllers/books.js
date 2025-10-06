@@ -19,11 +19,28 @@ const getBook = (request, response) => {
     .catch((e) => response.status(500).send(e.message));
 };
 
-const updateStutusBook = (request, response) => {
-  //Обновление статуса книги
+const updateStatusBook = (request, response) => {
+  // Обновление статуса книги
   const { book_id } = request.params;
-  return Book.findByIdAndUpdate(book_id, { ...request.body })
+  const { status } = request.body; // Извлекаем только статус из тела запроса
+
+  // Проверяем, что статус валиден
+  const validStatuses = ["available", "borrowed", "removed"];
+  if (!validStatuses.includes(status)) {
+    return response
+      .status(400)
+      .send("Неверный статус. Допустимые: available, borrowed, removed");
+  }
+
+  return Book.findByIdAndUpdate(
+    book_id,
+    { status }, // Обновляем только статус
+    { new: true } // Возвращаем обновлённый документ
+  )
     .then((book) => {
+      if (!book) {
+        return response.status(404).send("Книга не найдена");
+      }
       response.status(200).send(book);
     })
     .catch((e) => response.status(500).send(e.message));
@@ -51,7 +68,7 @@ const deleteBook = (request, response) => {
 module.exports = {
   getBooks,
   getBook,
-  updateStutusBook,
+  updateStatusBook,
   createBook,
   deleteBook,
 };

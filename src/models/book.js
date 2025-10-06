@@ -15,6 +15,11 @@ const bookSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+   status: {
+    type: String,
+    enum: ['available', 'borrowed', 'removed'],  // Только эти значения
+    default: 'available',  // По умолчанию доступна
+  },
 });
 
 module.exports = mongoose.model("book", bookSchema);
