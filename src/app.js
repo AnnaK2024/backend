@@ -1,24 +1,40 @@
-const http = require("http");
-const getUsers = require("./modules/users");
+const express = require("express");
+const dotenv = require("dotenv");
+const bodyParser = require("body-parser");
+const cors = require("./middlewares/cors");
+const logger = require("./middlewares/logger");
+const mongoose = require("mongoose");
+const userRouter = require("./routes/users");
+const bookRouter = require("./routes/books");
 
-const server = http.createServer((request, response) => {
-  if (request.url === "/users") {
-    response.status = 200;
-    response.statusMessage = "Ok";
-    response.header = "Content-Type: application/json";
-    response.write(getUsers());
-    response.end();
+dotenv.config();
 
-    return;
-  }
-  response.status = 200;
-  response.statusMessage = "Ok";
-  response.header = "Content-Type: text/plain";
-  response.write("Hello, world");
-  response.end();
+const {
+  PORT = 3000,
+  API_URL = "http://127.0.0.1",
+  MONGO_URL = "mongodb://127.0.0.1:27017/backend",
+} = process.env;
+
+mongoose
+  .connect(MONGO_URL)
+  .then(() => console.log("Connected to MongoDb"))
+  .catch((error) => console.log(error));
+
+const app = express();
+
+const answers = (request, response) => {
+  response.status(200);
+  response.send("Добро пожаловть в библиотеку!");
+};
+
+app.get("/", answers);
+
+app.use(cors);
+app.use(logger);
+app.use(bodyParser.json());
+app.use(userRouter);
+app.use(bookRouter);
+
+app.listen(PORT, () => {
+  console.log(`Сервер запущен по адресу ${API_URL}:${PORT}`);
 });
-
-server.listen(3001, () => {
-  console.log("Сервер запущен по адресу http://127.0.0.1:3001");
-});
-
